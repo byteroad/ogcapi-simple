@@ -42,6 +42,42 @@ services:
     networks:
       - default
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+    networks:
+      - default
+    deploy:
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 4G
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.15.2
+    container_name: logstash
+    volumes:
+      - ./logstash/config/logstash.conf:/usr/share/logstash/config/logstash.conf
+    ports:
+      - "5000:5000"
+    command: logstash -f /usr/share/logstash/config/logstash.conf
+    networks:
+      - default
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - default
+
   pygeoapi:
     image: geopython/pygeoapi:latest
     container_name: pygeoapi
