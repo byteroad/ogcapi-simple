@@ -53,6 +53,12 @@ ogr2ogr -a_srs "EPSG:3763" -t_srs "EPSG:4326" -f "PostgreSQL" PG:"dbname='geodb'
 -nlt PROMOTE_TO_MULTI -nln crus_31_julho2024 -overwrite
 ```
 
+docker run --rm --volumes-from="matomo" --link matomo python:3-alpine python /var/www/html/misc/log-analytics/import_logs.py --url=http://localhost --idsite=2 --recorders=4 /apache/access_log.log
+
+python /var/www/html/misc/log-analytics/import_logs.py --url=http://localhost  --login=user --password=matomo --idsite=2 --recorders=4 /apache/access_log.log
+
+
+
 ## License
 
 This project is released under an [MIT License](./LICENSE)
