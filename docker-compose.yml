@@ -109,7 +109,9 @@ services:
       - default
 
   matomo:
-    build: ./matomo/
+    build:
+      context: ./matomo/
+      dockerfile: Dockerfile.main
     container_name: matomo
     volumes:
       - matomo:/var/www/html:z
@@ -123,16 +125,16 @@ services:
     networks:
       - default
 
-  # python_matomo:
-  #   image: python:3-alpine
-  #   container_name: matomo_python
-  #   volumes:
-  #       - matomo:/var/www/html:z
-  #       - apache_log:/apache:ro
-  #   depends_on:
-  #     - matomo
-  #   command: python /var/www/html/misc/log-analytics/import_logs.py --url=http://matomo  --login=user --password=matomo --idsite=2 --recorders=4 /apache/access_log.log
-
+  python_matomo:
+    build:
+      context: ./matomo/
+      dockerfile: Dockerfile.cron
+    container_name: matomo_python
+    volumes:
+        - matomo:/var/www/html:z
+        - apache_log:/apache:ro
+    depends_on:
+      - matomo
   
 
 
