@@ -72,13 +72,17 @@ services:
       - postgis
     networks:
       - default
+    volumes:
+       - ./data:/data
+    # command: /data/crus_31_julho2024.mbtiles
 
   postgis:
-    build: ./postgis/
+    image: postgis/postgis:15-3.3-alpine
     environment:
       # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST_AUTH_METHOD: trust
+    shm_size: 2g
     env_file:
       - .env     # path to your .env file
     expose:
