@@ -74,7 +74,7 @@ services:
       - default
     volumes:
        - ./data:/data
-    # command: /data/crus_31_julho2024.mbtiles
+    command: /data/crus_31_julho2024.mbtiles
 
   postgis:
     image: postgis/postgis:15-3.3-alpine
