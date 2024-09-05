@@ -87,6 +87,14 @@ martin-cp  --output-file /data/crus_31_julho2024.mbtiles \
 
 Remove the containers, uncomment line 77 and start the composition again.
 
+## Serving tiles from static dir
+
+```
+docker run -it --rm -v $(pwd)/data:/data emotionalcities/tippecanoe \
+tippecanoe -r1 -pk -pf --output-to-directory=/data/tiles/ --force --maximum-zoom=14 \
+--extend-zooms-if-still-dropping --no-tile-compression /data/crus_31_julho2024.geojson
+```
+
 ## Setup Matomo
 
 Go to [http:localhost:8081](http:localhost:8081) and follow the wizard. Confirm everything until you initialized the DB. 
