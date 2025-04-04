@@ -14,7 +14,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE caop_user GRANT ALL ON SEQUENCES TO caop_user;
 GRANT SELECT ON public.spatial_ref_sys TO caop_user;
 GRANT SELECT, INSERT, DELETE ON public.geometry_columns TO caop_user;
 
-ALTER USER caop_user SET search_path TO caop2024;
+ALTER USER caop_user SET search_path TO public, caop2024;
 
 
 -- User and schema setup for INSPIRE
@@ -33,7 +33,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE inspire_user GRANT ALL ON SEQUENCES TO inspire
 GRANT SELECT ON public.spatial_ref_sys TO inspire_user;
 GRANT SELECT, INSERT, DELETE ON public.geometry_columns TO inspire_user;
 
-ALTER USER inspire_user SET search_path TO inspire;
+ALTER USER inspire_user SET search_path TO public, inspire;
 
 
 -- Tables and indexes
