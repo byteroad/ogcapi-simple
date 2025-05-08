@@ -67,10 +67,10 @@ services:
       - tiles_inspire
     networks:
       - default
-    # depends_on:
-    #   db_and_api_init:
-    #     condition: service_completed_successfully
-    #     restart: true
+    depends_on:
+      db_and_api_init:
+        condition: service_completed_successfully
+        restart: true
 
   tiles:
     image: ghcr.io/maplibre/martin
@@ -167,18 +167,18 @@ services:
       - bridge1
     restart: on-failure
 
-  # db_and_api_init:
-  #   build: ./utils/
-  #   container_name: db_and_api_init
-  #   env_file:
-  #     - .env     # path to your .env file
-  #   volumes:
-  #     - ./pygeoapi/docker.config.yml:/pygeoapi/docker.config.yml
-  #     - ./data:/data
-  #   depends_on:
-  #     - postgis
-  #   networks:
-  #     - default
+  db_and_api_init:
+    build: ./utils/
+    container_name: db_and_api_init
+    env_file:
+      - .env     # path to your .env file
+    volumes:
+      - ./pygeoapi/docker.config.yml:/pygeoapi/docker.config.yml
+      - ./data:/data
+    depends_on:
+      - postgis
+    networks:
+      - default
 
   # mariadb:
   #   image: mariadb:10.11
